@@ -1,8 +1,7 @@
 package com.chetan.daggerpractice.di;
 
-import com.chetan.daggerpractice.AuthActivity;
+import com.chetan.daggerpractice.ui.auth.AuthActivity;
 import dagger.Module;
-import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 
