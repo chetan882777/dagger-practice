@@ -3,6 +3,7 @@ package com.chetan.daggerpractice.di;
 import android.app.Application;
 
 import com.chetan.daggerpractice.BaseApplication;
+import com.chetan.daggerpractice.SessionManager;
 
 
 import javax.inject.Singleton;
@@ -22,6 +23,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         })
 public interface AppComponent extends AndroidInjector<BaseApplication> {
 
+
+    SessionManager sessionManager();
 
     @Component.Builder
     interface Builder{
