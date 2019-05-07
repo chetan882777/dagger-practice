@@ -1,5 +1,6 @@
 package com.chetan.daggerpractice.di;
 
+import com.chetan.daggerpractice.di.auth.AuthModule;
 import com.chetan.daggerpractice.di.auth.AuthViewModelsModule;
 import com.chetan.daggerpractice.ui.auth.AuthActivity;
 import dagger.Module;
@@ -10,7 +11,10 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(
-            modules = {AuthViewModelsModule.class}
+            modules = {
+                    AuthViewModelsModule.class,
+                    AuthModule.class,
+            }
     )
     abstract AuthActivity contributeAuthActivity();
 

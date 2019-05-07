@@ -5,20 +5,33 @@ import android.app.Application;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.provider.SyncStateContract;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.chetan.daggerpractice.R;
+import com.chetan.daggerpractice.util.Constants;
 
 import javax.inject.Singleton;
 
 import androidx.core.content.ContextCompat;
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class AppModule {
+
+    @Singleton
+    @Provides
+    static Retrofit provideRetrofitInstance(){
+        return new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
 
     @Singleton
     @Provides
