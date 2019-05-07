@@ -7,15 +7,19 @@ import com.chetan.daggerpractice.network.auth.AuthApi;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.LiveDataReactiveStreams;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
-import io.reactivex.Observer;
 import io.reactivex.Scheduler;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class AuthViewModel extends ViewModel {
 
     private static final String TAG = "AuthViewModel";
+
+    private MediatorLiveData<User> authUser = new MediatorLiveData<>();
 
     private final AuthApi authApi;
     @Inject
@@ -23,37 +27,25 @@ public class AuthViewModel extends ViewModel {
         this.authApi = authApi;
         Log.d(TAG, "AuthViewModel: viewmodel is working...");
 
+    }
 
-        if(this.authApi == null){
-            Log.d(TAG, "AuthViewModel: Auth Api is NULL.");
-        }else{
-            Log.d(TAG, "AuthViewModel: Auth Api is NOT NULL.");
+    public void authenticateWithId(int userId){
+        final LiveData<User> source = LiveDataReactiveStreams.fromPublisher(
+                authApi.getUser(userId)
+                .subscribeOn(Schedulers.io())
+        );
 
-            authApi.getUser(1)
-                    .toObservable()
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(new Observer<User>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                            
-                        }
+        authUser.addSource(source, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                authUser.setValue(user);
+                authUser.removeSource(source);
+            }
+        });
+    }
 
-                        @Override
-                        public void onNext(User user) {
-                            Log.d(TAG, "onNext: " + user.getEmail());
-                        }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e(TAG, "onError: " + e );
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-        }
-
+    public LiveData<User> observeuser(){
+        return authUser;
     }
 }
