@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import dagger.android.support.DaggerAppCompatActivity;
 
-import static com.chetan.daggerpractice.ui.auth.AuthResource.AuthStatus.LOADING;
 
 public abstract class BaseActivity extends DaggerAppCompatActivity {
 
