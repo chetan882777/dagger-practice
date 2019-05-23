@@ -2,6 +2,7 @@ package com.chetan.daggerpractice.di;
 
 import com.chetan.daggerpractice.di.auth.AuthModule;
 import com.chetan.daggerpractice.di.auth.AuthViewModelsModule;
+import com.chetan.daggerpractice.di.main.MainFragmentBuildersModule;
 import com.chetan.daggerpractice.ui.auth.AuthActivity;
 import com.chetan.daggerpractice.ui.main.MainActivity;
 
@@ -21,7 +22,9 @@ public abstract class ActivityBuilderModule {
     abstract AuthActivity contributeAuthActivity();
 
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+            modules = {MainFragmentBuildersModule.class}
+    )
     abstract MainActivity contributeMainActivity();
 
 }

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.chetan.daggerpractice.BaseActivity;
 import com.chetan.daggerpractice.R;
+import com.chetan.daggerpractice.ui.main.profile.ProfileFragment;
 
 import androidx.annotation.Nullable;
 
@@ -20,6 +21,15 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         Toast.makeText(this , "Main Activity" , Toast.LENGTH_SHORT).show();
+
+        testFragment();
+    }
+
+    private void testFragment(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_container, new ProfileFragment())
+                .commit();
     }
 
     @Override
