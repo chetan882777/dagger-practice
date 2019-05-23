@@ -21,9 +21,7 @@ public class SessionManager {
     private MediatorLiveData<AuthResource<User>> cachedUser = new MediatorLiveData<>();
 
     @Inject
-    public SessionManager() {
-
-    }
+    public SessionManager() {}
 
     public void authenticateWithId(final LiveData<AuthResource<User>> source) {
         if(cachedUser != null){
