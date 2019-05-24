@@ -3,6 +3,7 @@ package com.chetan.daggerpractice.di.main;
 import androidx.lifecycle.ViewModel;
 
 import com.chetan.daggerpractice.di.ViewModelKey;
+import com.chetan.daggerpractice.ui.main.posts.PostsViewModel;
 import com.chetan.daggerpractice.ui.main.profile.ProfileViewModel;
 
 import dagger.Binds;
@@ -16,4 +17,9 @@ public abstract class MainViewModelsModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel.class)
     public abstract ViewModel bindsProfileViewModel(ProfileViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostsViewModel.class)
+    public abstract ViewModel bindsPostsViewModel(PostsViewModel viewModel);
 }

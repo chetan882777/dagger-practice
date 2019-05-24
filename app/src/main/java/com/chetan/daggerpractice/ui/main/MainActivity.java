@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.chetan.daggerpractice.BaseActivity;
 import com.chetan.daggerpractice.R;
+import com.chetan.daggerpractice.ui.main.posts.PostsFragment;
 import com.chetan.daggerpractice.ui.main.profile.ProfileFragment;
 
 import androidx.annotation.Nullable;
@@ -26,7 +27,7 @@ public class MainActivity extends BaseActivity {
     private void testFragment(){
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_container, new ProfileFragment())
+                .add(R.id.main_container, new PostsFragment())
                 .commit();
     }
 
