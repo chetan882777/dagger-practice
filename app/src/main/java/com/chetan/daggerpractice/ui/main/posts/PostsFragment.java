@@ -1,6 +1,7 @@
 package com.chetan.daggerpractice.ui.main.posts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chetan.daggerpractice.R;
+import com.chetan.daggerpractice.models.Post;
+import com.chetan.daggerpractice.ui.main.Resource;
 import com.chetan.daggerpractice.viewmodels.ViewModelProviderFactory;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,5 +48,20 @@ public class PostsFragment extends DaggerFragment {
         recyclerView = view.findViewById(R.id.recycler_view);
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(PostsViewModel.class);
+
+        subscribeObservers();
+    }
+
+    private void subscribeObservers(){
+        viewModel.observePost().removeObservers(getViewLifecycleOwner());
+
+        viewModel.observePost().observe(getViewLifecycleOwner(), new Observer<Resource<List<Post>>>() {
+            @Override
+            public void onChanged(Resource<List<Post>> listResource) {
+                if(listResource != null){
+                    Log.d(TAG, "onChanged: " + listResource.data);
+                }
+            }
+        });
     }
 }
